@@ -209,6 +209,8 @@ object MigrationTool extends ScorexLogging {
   }
 
   def main(args: Array[String]): Unit = {
+    log.info(s"OK, engine start")
+
     val userConfig = args.headOption.fold(ConfigFactory.empty())(f => ConfigFactory.parseFile(new File(f)))
     val settings   = WavesSettings.fromConfig(loadConfig(userConfig))
     val db         = openDB(settings.matcherSettings.dataDir)
