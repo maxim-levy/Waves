@@ -226,7 +226,7 @@ case class MatcherApiRoute(wallet: Wallet,
       checkGetSignature(publicKey, ts, sig) match {
         case Success(address) =>
           withAssetPair(p, redirectToInverse = true, s"/publicKey/$publicKey") { pair =>
-            complete(StatusCodes.OK -> DBUtils.ordersByAddress(db, address, Set(pair.priceAsset, pair.amountAsset), false).map {
+            complete(StatusCodes.OK -> DBUtils.ordersByAddressAndPair(db, address, pair, false).map {
               case (order, orderInfo) =>
                 orderJson(order, orderInfo)
             })
